@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build-employee:
+  build-backend:
     name: Build & Test Spring Boot
     runs-on: ubuntu-latest
 
@@ -22,14 +22,14 @@ jobs:
 
       - name: Build and Test Spring Boot
         run: |
-          cd backend
+          cd employee
           mvn clean install
           mvn test
 
-  build-employee-web:
+  build-frontend:
     name: Build & Test React
     runs-on: ubuntu-latest
-    needs: build-employee  # Ensures backend builds first
+    needs: build-backend  # Ensures backend builds first
 
     steps:
       - name: Checkout repository
@@ -42,15 +42,15 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd frontend
+          cd employee-web
           npm install
 
       - name: Run tests
         run: |
-          cd frontend
+          cd employee-web
           npm test
 
       - name: Build React App
         run: |
-          cd frontend
+          cd employee-web
           npm run build
